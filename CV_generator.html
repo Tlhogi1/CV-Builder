@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Builder</title>
+<link rel="stylesheet" href="styles.css">
+<!--<script-- src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<h1>CV Builder</h1>
+<form id="cvForm">
+<fieldset class="personal-info">
+<legend>Personal Information</legend>
+<div class="project-entry"></div>
+<div class="row">
+<div class="column">
+<label for="firstName">First Name:</label>
+<input type="text" id="firstName" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="middleName">Middle Name:</label>
+<input type="text" id="middleName" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="lastName">Last Name:</label>
+<input type="text" id="lastName" oninput="updatePreview()">
+</div>
+</div>
+<div class="row">
+<div class="column">
+<label for="image">Upload Image:</label>
+<input type="file" id="image" onchange="loadImage(event)">
+</div>
+<div class="column">
+<label for="designation">Designation:</label>
+<input type="text" id="designation" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="address">Address:</label>
+<input type="text" id="address" oninput="updatePreview()">
+</div>
+</div>
+<div class="row">
+<div class="column">
+<label for="email">Email:</label>
+<input type="email" id="email" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="phone">Contact Number:</label>
+<input type="tel" id="phone" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="summary">Summary:</label>
+<textarea id="summary" oninput="updatePreview()"></textarea>
+</div>
+</div>
+</fieldset>
+<fieldset class="work-experience">
+<legend>Achievements</legend>
+
+<div class="row">
+<div class="column">
+    <div id="workExperienceContainer"></div>
+    <button type="button" onclick="addWorkExperience()">Add More</button>
+</div>
+</div>
+
+</fieldset>
+<fieldset class="work-history">
+<legend>Work History</legend>
+<div id="workHistoryContainer">
+<div class="work-history-entry">
+<div class="row">
+<div class="column">
+<label for="workHistoryTitle">Title:</label>
+<input type="text" class="workHistoryTitle" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="workHistoryCompany">Company/Organization:</label>
+<input type="text" class="workHistoryCompany" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="workHistoryLocation">Location:</label>
+<input type="text" class="workHistoryLocation" oninput="updatePreview()">
+</div>
+</div>
+<div class="row">
+<div class="column">
+<label for="workHistoryStartDate">Start Date:</label>
+<input type="date" class="workHistoryStartDate" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="workHistoryEndDate">End Date:</label>
+<input type="date" class="workHistoryEndDate" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="workHistoryDescription">Description:</label>
+<textarea class="workHistoryDescription" oninput="updatePreview()"></textarea>
+</div>
+</div>
+</div>
+</div>
+<button type="button" onclick="addWorkHistory()">Add More</button>
+</fieldset>
+<fieldset class="education">
+<legend>Education</legend>
+<div id="educationContainer">
+<div class="education-entry">
+<div class="row">
+<div class="column">
+<label for="educationSchool">School Name:</label>
+<input type="text" class="educationSchool" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="educationQualification">Qualification:</label>
+<input type="text" class="educationQualification" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="educationCity">City:</label>
+<input type="text" class="educationCity" oninput="updatePreview()">
+</div>
+</div>
+<div class="row">
+<div class="column">
+<label for="educationStartDate">Start Date:</label>
+<input type="date" class="educationStartDate" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="educationEndDate">End Date:</label>
+<input type="date" class="educationEndDate" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="educationDescription">Description:</label>
+<textarea class="educationDescription" oninput="updatePreview()"></textarea>
+</div>
+</div>
+</div>
+</div>
+<button type="button" onclick="addEducation()">Add More</button>
+</fieldset>
+<fieldset class="projects">
+<legend>Projects</legend>
+<div id="projectsContainer">
+<div class="project-entry">
+<div class="row">
+<div class="column">
+<label for="projectTitle">Project Name:</label>
+<input type="text" class="projectTitle" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="projectLink">Project Link:</label>
+<input type="url" class="projectLink" oninput="updatePreview()">
+</div>
+<div class="column">
+<label for="projectDescription">Description:</label>
+<textarea class="projectDescription" oninput="updatePreview()"></textarea>
+</div>
+</div>
+</div>
+</div>
+<button type="button" onclick="addProject()">Add More</button>
+</fieldset>
+<fieldset class="skills">
+<legend>Skills</legend>
+<div id="skillsContainer">
+<div class="skill-entry">
+<div class="row">
+<div class="column">
+<label for="skillName">Skill:</label>
+<input type="text" class="skillName" oninput="updatePreview()">
+</div>
+</div>
+</div>
+</div>
+<button type="button" onclick="addSkill()">Add More</button>
+</fieldset>
+<!--  <button type="button" onclick="generateCV()">Generate CV</button>   --> 
+  
+</form>
+<div id="cvPreview" class="cv-preview">
+    <div class="sidebar">
+      <img id="previewImage" src="" alt="Image Preview" class="image">
+      <div class="names">
+       <p id="previewName"></p>
+       <p id="previewDesignation"></p>
+      </div>
+      <hr >
+      <h3>Personal Information</h3>
+      <p id="previewSummary"></p>
+
+      <p id="previewName"></p>
+      <p id="previewDesignation"></p>
+      <p id="previewAddress"></p>
+      <p id="previewEmail"></p>
+      <p id="previewPhone"></p>
+      <h3>Skills</h3>
+      <hr >
+      <div id="previewSkills"></div>
+    </div>
+    <div class="main-content">
+      <hr>
+      <div id="previewWorkExperience"></div>
+      <h3>Work History</h3>
+      <hr>
+      <div id="previewWorkHistory"></div>
+      <h3>Education</h3>
+      <hr>
+      <div id="previewEducation"></div>
+      <h3>Projects</h3>
+      <hr>
+      <div id="previewProjects"></div>
+      <h3>Achievements</h3>
+
+      </div>
+  </div>
+  
+<button type="button" onclick="downloadCV()">Download CV</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
